@@ -67,12 +67,12 @@ def getCategory(atok, btok):
     if damerauLevenshtein(norma, normb, similarity=False) <= 3:
         if Counter(norma) == Counter(normb):
             if Counter(atok) == Counter(btok):
-                return 'jumble'
+                return 'noise:jumble'
             if Counter(lowa) == Counter(lowb):
-                return 'jumble-capital'
+                return 'noise:jumble-capital'
             if Counter(asciia) == Counter(asciib):
-                return 'jumble-ascii'
-            return 'jumble-capital-ascii'
+                return 'noise:jumble-ascii'
+            return 'noise:jumble-capital-ascii'
         if subdist(norma, normb) <= 3 and subdist(norma, normb) == damerauLevenshtein(norma, normb, similarity=False):
             if subdist(atok, btok) <= 3:
                 return 'noise:sub'
@@ -83,20 +83,20 @@ def getCategory(atok, btok):
             return 'noise:sub-capital-ascii'
         if len(atok) - len(btok) == damerauLevenshtein(norma, normb, similarity=False):
             if len(atok) - len(btok) == damerauLevenshtein(atok, btok, similarity=False):
-                return 'noise:delete'
-            if len(atok) - len(btok) == damerauLevenshtein(lowa, lowb, similarity=False):
-                return 'noise:delete-capital'
-            if len(atok) - len(btok) == damerauLevenshtein(asciia, asciib, similarity=False):
-                return 'noise:delete-ascii'
-            return 'noise:delete-capital-ascii'
-        if len(btok) - len(atok) == damerauLevenshtein(norma, normb, similarity=False):
-            if len(btok) - len(atok) == damerauLevenshtein(atok, btok, similarity=False):
                 return 'noise:insert'
-            if len(btok) - len(atok) == damerauLevenshtein(lowa, lowb, similarity=False):
+            if len(atok) - len(btok) == damerauLevenshtein(lowa, lowb, similarity=False):
                 return 'noise:insert-capital'
-            if len(btok) - len(atok) == damerauLevenshtein(asciia, asciib, similarity=False):
+            if len(atok) - len(btok) == damerauLevenshtein(asciia, asciib, similarity=False):
                 return 'noise:insert-ascii'
             return 'noise:insert-capital-ascii'
+        if len(btok) - len(atok) == damerauLevenshtein(norma, normb, similarity=False):
+            if len(btok) - len(atok) == damerauLevenshtein(atok, btok, similarity=False):
+                return 'noise:delete'
+            if len(btok) - len(atok) == damerauLevenshtein(lowa, lowb, similarity=False):
+                return 'noise:delete-capital'
+            if len(btok) - len(atok) == damerauLevenshtein(asciia, asciib, similarity=False):
+                return 'noise:delete-ascii'
+            return 'noise:delete-capital-ascii'
         if damerauLevenshtein(atok, btok, similarity=False) <= 3:
             return 'noise:other'
         if damerauLevenshtein(lowa, lowb, similarity=False) <= 3:
