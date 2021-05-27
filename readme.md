@@ -14,6 +14,7 @@ The unpacked SpellingMistakes.tsv has the following fields
 * Original right context
 * Corrected right context
 * Mistake Category
+* Is original a word or nonword (according to [TRmorph](https://github.com/coltekin/TRmorph))
 
 SpellingMistakesSample.tsv contains 100 random lines from the unzipped SpellingMistakes.tsv (so you can see what the data looks like before you decide to download)
 
